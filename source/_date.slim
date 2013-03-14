@@ -1,0 +1,8 @@
+- date = { :iso8601 => datetime.strftime('%Y-%m-%dT%H:%M:%S%:z'), :year_name => datetime.strftime('%Y'), :month_name => datetime.strftime('%B'), :day_name => datetime.strftime('%-e'), :year_path => blog_year_path(datetime.strftime('%Y')), :month_path => blog_month_path(datetime.strftime('%Y'), datetime.strftime('%m')), :day_path => blog_day_path(datetime.strftime('%Y'), datetime.strftime('%m'), datetime.strftime('%d')) }
+
+time.published.updated[datetime='#{date[:iso8601]}' itemprop='datePublished']
+  a[href='#{date[:year_path]}' itemprop='copyrightYear']= date[:year_name]
+  '
+  a[href='#{date[:month_path]}']= date[:month_name]
+  '
+  a[href='#{date[:day_path]}']= date[:day_name]

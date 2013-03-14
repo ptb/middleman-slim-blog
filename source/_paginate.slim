@@ -1,0 +1,14 @@
+- if (prev_url || next_url)
+  nav[aria-labelledby='pagination' role='navigation']
+    h3#pagination Page Navigation
+    ul
+      - if prev_url && prev_title
+        li.prev: a[href='#{prev_url}' rel='prev']= prev_title
+      - if page_number && num_pages
+        li.page
+          = page_number
+          span &#160;of&#160;
+          = num_pages
+      - if next_url && next_title
+        li.next: a[href='#{next_url}' rel='next']= next_title
+  hr

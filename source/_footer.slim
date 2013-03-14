@@ -1,0 +1,53 @@
+// References: <goo.gl/4nFU4> <bit.ly/PGvh61>
+// Vocabulary: <schema.org/Person> <microformats.org/wiki/hcard>
+// Validators: <goo.gl/AhPN> <binged.it/RRLg0Q> <bit.ly/qBbLZ>
+
+footer.author.vcard[itemprop='author' itemscope itemtype='http://schema.org/Person' role='contentinfo']
+  p.copyright
+    time[datetime='#{Time.now.year}']= Time.now.year
+    '
+    a.url[href='#{author[:url]}' itemprop='url' rel='author']
+      span.fn.n[itemprop='name']
+        span.given-name[itemprop='givenName']= author[:fname]
+        - if author[:mname]
+          '
+          span.additional-name[itemprop='additionalName']= author[:mname]
+        '
+        span.family-name[itemprop='familyName']= author[:lname]
+        - if author[:sname]
+          '
+          span.honorific-suffix[itemprop='honorificSuffix']= author[:sname]
+    ',
+    - if author[:title]
+      a.role[href='#{author[:title_url]}' itemprop='jobTitle']= author[:title]
+    '  for
+    - if author[:org]
+      a.org[href='#{author[:org_url]}' itemprop='affiliation']= author[:org]
+    '.
+
+    a[href='http://creativecommons.org/licenses/by-sa/3.0/us/' rel='license' title='Creative Commons Attribution-Share Alike 3.0 U.S. License'] Some rights reserved
+    |.
+
+  address
+    - if author[:email]
+      a.email[href='&#109;&#097;&#105;&#108;&#116;&#111;:#{{author[:email]}}' itemprop='email']== author[:email]
+    - if author[:tel] && author[:tel_url]
+      ',
+      a.tel[href='tel:#{author[:tel_url]}' itemprop='telephone']= author[:tel]
+
+    - if author[:locality] && author[:region]
+      ', or
+      span.adr[itemprop='address' itemscope itemtype='http://www.schema.org/PostalAddress']
+        - if author[:pobox]
+          ' P.O. Box
+          span.post-office-box[itemprop='postOfficeBoxNumber']= author[:pobox]
+          ',
+        span.locality[itemprop='addressLocality']= author[:locality]
+        ',
+        span.region[itemprop='addressRegion']= author[:region]
+        - if author[:postal_code]
+          '
+          span.postal-code[itemprop='postalCode']= author[:postal_code]
+        - if author[:country_name]
+          '
+          span.country-name[itemprop='addressCountry']= author[:country_name]

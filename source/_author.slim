@@ -1,0 +1,12 @@
+span.author.vcard
+  a.url[href='#{author[:url]}']
+    span.fn.n
+      span.given-name= author[:fname]
+      - if author[:mname]
+        '
+        span.additional-name= author[:mname]
+      '
+      span.family-name= author[:lname]
+      - if author[:sname]
+        '
+        span.honorific-suffix= author[:sname]

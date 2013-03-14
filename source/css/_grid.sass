@@ -1,0 +1,83 @@
+$grid-columns: 12
+
+$container: 'container'
+$row: 'row'
+$span: 'span'
+$offset: 'offset'
+
+=clear-float
+  &:before, &:after
+    content: ' '
+    display: table
+  &:after
+    clear: both
+
+=grid-offset($columns)
+  margin-left: percentage($columns / $grid-columns)
+
+=grid-offset-x($columns)
+  @while $columns > 0
+    .#{$offset}#{$columns}
+      +grid-offset($columns)
+    $columns: $columns - 1
+
+=grid-span($columns)
+  width: percentage($columns / $grid-columns)
+
+=grid-span-x($columns)
+  @while $columns > 0
+    .#{$span}#{$columns}
+      +grid-span($columns)
+    $columns: $columns - 1
+
+body
+  margin: 0
+
+@media screen
+  @media (min-width: 768px)
+    $grid-gutter-width: 20px
+
+    .#{$container}
+      margin-right: auto
+      margin-left: auto
+      max-width: 768px - ($grid-gutter-width * 2)
+      +clear-float
+
+    .#{$row}
+      margin-right: $grid-gutter-width / -2
+      margin-left: $grid-gutter-width / -2
+      +clear-float
+
+    [class*='#{$span}']
+      -webkit-box-sizing: border-box
+      -moz-box-sizing: border-box
+      box-sizing: border-box
+      padding-right: $grid-gutter-width / 2
+      padding-left: $grid-gutter-width / 2
+      min-height: 1px
+      float: left
+
+    +grid-span-x($grid-columns)
+
+    +grid-offset-x($grid-columns)
+
+  @media (min-width: 992px)
+    .#{$container}
+      max-width: 940px
+
+  @media (min-width: 1200px)
+    $grid-gutter-width: 30px
+
+    .#{$container}
+      max-width: 1200px - $grid-gutter-width
+
+    .#{$row}
+      margin-right: $grid-gutter-width / -2
+      margin-left: $grid-gutter-width / -2
+
+    [class*='#{$span}']
+      padding-right: $grid-gutter-width / 2
+      padding-left: $grid-gutter-width / 2
+
+[class*='#{$span}'].pull-right
+  float: right

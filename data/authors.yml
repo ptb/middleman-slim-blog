@@ -1,0 +1,21 @@
+author1:
+  fname: James
+  mname: J.
+  lname: Smith
+  sname: Jr
+  url: /about/
+  title: freelance web developer
+  title_url: /web-design/
+  org: Example Corp
+  org_url: /
+  org_full_url: http://example.com
+  google_plus_url: https://plus.google.com/123456789012345678901
+  # Email encoder: <http://bit.ly/4qXtQh>
+  email: "&#106;&#097;&#109;&#101;&#115;&#064;&#101;&#120;&#097;&#109;&#112;&#108;&#101;&#046;&#099;&#111;&#109;"
+  tel: (212) 555-1212
+  tel_url: +1-212-555-1212
+  pobox: 123
+  locality: New York
+  region: NY
+  postal_code: 10001
+  country_name: US

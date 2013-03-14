@@ -1,0 +1,20 @@
+- a = author[:org]
+
+- content_for :title do
+  - if is_blog_article?
+    | #{current_article.title} - #{a}
+  - elsif defined?(page_type)
+    - case page_type
+    - when 'day'
+      - d = Date.new(year, month, day)
+      | #{a} for #{d.strftime('%B')} #{d.strftime('%e').to_i.ordinalize}, #{d.strftime('%Y')}
+    - when 'month'
+      - d = Date.new(year, month, 1)
+      | #{a} for #{d.strftime('%B')} #{d.strftime('%Y')}
+    - when 'year'
+      - d = Date.new(year, 1, 1)
+      | #{a} for #{d.strftime('%Y')}
+    - when 'tag'
+      | #{tagname.titleize} - #{a}
+  - else
+    | Welcome to #{a}

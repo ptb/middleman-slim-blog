@@ -1,0 +1,44 @@
+- locals[:author] = data.authors.author1
+- partial 'title', :locals => locals
+- partial 'description', :locals => locals
+
+doctype 5
+html.no-js[lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml']
+  head
+    meta[charset='UTF-8']/
+
+    - if content_for? :title
+      title #{yield_content :title}
+
+    - if content_for? :description
+      meta[content='#{yield_content :description}' name='description']/
+
+    meta[content='yes' name='apple-mobile-web-app-capable']/
+    meta[content='initial-scale=1, width=device-width' name='viewport']/
+
+    //meta[content='IE=edge;chrome=1' http-equiv='X-UA-Compatible']/
+
+    - if locals[:author][:google_plus_url]
+      link[href='#{locals[:author][:google_plus_url]}' rel='author']/
+
+    link[href='http://microformats.org/profile/hatom' rel='profile']/
+    link[href='http://microformats.org/profile/hcard' rel='profile']/
+
+    link[href='/subscribe/index.atom' rel='alternate' type='application/atom+xml']/
+
+    link[href='/css/style.css' rel='stylesheet']/
+
+    script[src='/js/modernizr.min.js']
+
+  body[itemscope itemtype='http://www.schema.org/Blog']
+    == partial 'header', :locals => locals
+    hr
+
+    - if is_blog_article?
+      == partial 'article', :locals => { :article => current_article, :article_body => yield, :single_article => true, :author => locals[:author] }
+      == partial 'paginate', :locals => { :next_url => (current_article.previous_article ? current_article.previous_article.url : nil), :prev_url => (current_article.next_article ? current_article.next_article.url : nil), :next_title => (current_article.previous_article ? "Older: #{current_article.previous_article.title}" : nil), :prev_title => (current_article.next_article ? "Newer: #{current_article.next_article.title}" : nil), :page_number => nil, :num_pages => nil }
+
+    - else
+      == yield
+
+    == partial 'footer', :locals => locals

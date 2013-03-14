@@ -1,0 +1,18 @@
+article.hentry[itemprop='blogPost' itemscope itemtype='http://schema.org/BlogPosting']
+  header
+    == partial 'date', :locals => { :datetime => article.date }
+    '
+    == partial 'tags', :locals => { :tags => article.tags }
+    '
+    == partial 'author', :locals => { :author => locals[:author] }
+
+  div
+    == partial 'headline', :locals => { :article => article, :single_article => single_article }
+    - if single_article
+      div.entry-content[itemprop='articleBody']
+        == article_body
+    - else
+      div.entry-summary[itemprop='description']
+        == article_body
+      == partial 'more', :locals => { :article => article }
+hr

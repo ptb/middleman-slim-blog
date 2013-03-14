@@ -1,0 +1,3 @@
+header[role='banner']
+  h1: a[href='#{locals[:author][:org_url]}'] #{locals[:author][:org]}
+  == partial 'tags', :locals => { :tags => blog.tags }

@@ -1,0 +1,2 @@
+- page_articles.each_with_index do |article, i|
+  == partial 'article', :locals => { :article => article, :article_body => article.summary, :single_article => false, :author => locals[:author] }

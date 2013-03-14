@@ -1,0 +1,6 @@
+- if is_blog_article?
+  - content_for :description do
+    = truncate(strip_tags(current_article.summary), :length => 160)
+- if defined?(page_type) && (page_type == 'tag') && File.exists?("source/intros/_#{tagname}.slim")
+  - content_for :description do
+    = truncate(strip_tags(partial "intros/#{tagname}"), :length => 160)

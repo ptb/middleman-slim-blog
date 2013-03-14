@@ -1,0 +1,5 @@
+h2.entry-title[itemprop='headline']
+  - if single_article
+    = article.title
+  - else
+    a.permalink[href='#{article.url}' itemprop='url' rel='bookmark']= article.title
