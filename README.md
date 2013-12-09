@@ -40,10 +40,12 @@ You may be prompted to enter your password.
 /bin/cat /etc/paths;
 ```
 
-### Install [Homebrew](http://mxcl.github.com/homebrew/) ###
+Close and re-open the Terminal window to complete these changes.
+
+### Install [Homebrew](http://brew.sh/) ###
 
 ```bash
-ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)";
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
 ```
 
 When prompted, press the 'ENTER' key to continue.
@@ -57,23 +59,23 @@ brew install git readline sqlite;
 ### Install [RVM](https://rvm.io/rvm/install/) ###
 
 ```bash
-curl -L https://get.rvm.io | bash -s stable;
+curl -sSL https://get.rvm.io | bash -s stable --autolibs=homebrew;
 ```
 
 ```bash
 source $HOME/.rvm/scripts/rvm;
 ```
 
-### Install [Ruby](http://www.ruby-lang.org/) ###
+### Install [Ruby](http://www.ruby-lang.org/en/) ###
 
 ```bash
 brew install libgpg-error libksba;
 brew tap homebrew/dupes;
 brew install autoconf automake apple-gcc42;
+brew install libtool pkg-config libyaml openssl;
 ```
 
 ```bash
-rvm pkg install openssl;
 rvm reinstall all --force;
 echo 'install: --no-rdoc --no-ri' >> ~/.gemrc;
 echo 'update: --no-rdoc --no-ri' >> ~/.gemrc;
