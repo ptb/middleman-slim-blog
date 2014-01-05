@@ -1,10 +1,10 @@
 # [Middleman Slim Blog](https://github.com/ptb/middleman-slim-blog) #
 
-**Middleman Slim Blog** is blog template for the a static site generator [Middleman](http://middlemanapp.com/).  This template uses [valid](http://validator.w3.org/) [HTML5](http://www.w3.org/TR/html5/) and markedup using the [schema.org](http://schema.org/) [microdata](http://dev.w3.org/html5/md/) and [microformats](http://microformats.org/) vocabularies.  [Slim](http://slim-lang.com/) and [Sass](http://sass-lang.com/) were chosen for clean structured output with an absolute minimum of typing.  Topic pages (tags) can have introductory content.  Generated URLs are [short](http://www.seomoz.org/blog/11-best-practices-for-urls) and [clean](http://warpspire.com/posts/url-design/).  Generated content is compact and thus quick to load.  It includes a minimum of styling, but it does include an adaptation of the Bootstrap 3.0 grid.  The workflow for site development is designed to be easy and dynamic: hit save and the site is automatically reloaded in your browser.  Because the generated output is static content, it can be hosted on any web server, even [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html) at your [root domain](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html).  If you use Amazon S3 for hosting, I highly recommend using [Panic Transmit](http://panic.com/transmit/).  I've included a script to set the correct headers in `scripts/s3headers.sh` for gzipped content.  This template is [Apache-licensed](http://www.apache.org/licenses/LICENSE-2.0.html).
+**Middleman Slim Blog** is blog template for the a static site generator [Middleman](http://middlemanapp.com/). This template uses [valid](http://validator.w3.org/) [HTML5](http://www.w3.org/TR/html5/) and markedup using the [schema.org](http://schema.org/) [microdata](http://dev.w3.org/html5/md/) and [microformats](http://microformats.org/) vocabularies. [Slim](http://slim-lang.com/) and [Sass](http://sass-lang.com/) were chosen for clean structured output with an absolute minimum of typing. Blog articles and topic pages (tags) can have introductory content. Generated URLs are [short](http://www.seomoz.org/blog/11-best-practices-for-urls) and [clean](http://warpspire.com/posts/url-design/). Generated content is compact and thus quick to load. It includes a minimum of styling, but it does include an adaptation of the Bootstrap 3.0 grid. The workflow for site development is designed to be easy and dynamic: hit save and the site is automatically reloaded in your browser. Because the generated output is static content, it can be hosted on any web server, even [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html) at your [root domain](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html). If you use Amazon S3 for hosting, I highly recommend using [Panic Transmit](http://panic.com/transmit/). I've included a script to set the correct headers in `scripts/set-s3-headers.command` for gzipped content. This template is [Apache-licensed](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Setup ##
 
-This is how I set up a [new Mac](http://store.apple.com/us/browse/home/shop_mac) running [OS X Mountain Lion](http://www.apple.com/osx/) to make use of this framework.
+This is how I set up a [new Mac](http://store.apple.com/us/browse/home/shop_mac) running [OS X Mavericks](http://www.apple.com/osx/) to make use of this template.
 
 ### Install [Command Line Tools](https://developer.apple.com/downloads/) for Xcode ###
 
@@ -12,7 +12,7 @@ An [Apple Developer account](https://developer.apple.com/programs/register/) is 
 
 Download the latest version of the [Command Line Tools for Xcode](https://developer.apple.com/downloads/).
 
-![Command Line Tools (OS X Mountain Lion) for Xcode - November 2012](http://i.imgur.com/aY4kV.png)
+![Command Line Tools (OS X Mavericks) for Xcode - Late October 2013](http://i.imgur.com/jkI56Hj.png)
 
 Install the [Command Line Tools](https://developer.apple.com/downloads/).
 
@@ -79,13 +79,13 @@ brew install libtool pkg-config libyaml openssl;
 rvm reinstall all --force;
 echo 'install: --no-rdoc --no-ri' >> ~/.gemrc;
 echo 'update: --no-rdoc --no-ri' >> ~/.gemrc;
-rvm install 1.9.3;
+rvm install 2.1.0;
 ```
 
 Press the 'q' key, to dismiss the instructions and to continue.
 
 ```bash
-rvm use 1.9.3 --default;
+rvm use 2.1.0 --default;
 ruby -v;
 ```
 
@@ -103,23 +103,23 @@ bundle install;
 
 ### Getting Started ###
 
-To get started, first edit the `data/authors.yml` file.  This populates your information throughout your site.  You'll want to replace the content in the `source/content` and `intros` folders with your own.
+To get started, first edit the `data/authors.yml` file. This populates your information throughout your site. You'll want to replace the content in the `source/content` and `intros` folders with your own.
 
 To create a new article:
 
 ```bash
 cd ~/Sites/example.com/;
-./scripts/create.sh EXAMPLE_TITLE;
+./scripts/3-create-article.command;
 ```
 
 ## Usage ##
 
 ```bash
 cd ~/Sites/example.com/;
-./scripts/serve.sh;
+./scripts/1-start-server.command;
 ```
 
-Open this link: [http://localhost:5000/](http://localhost:5000/)
+Open this link: [http://localhost:5001/](http://localhost:5001/)
 
 ### Deploy ###
 
@@ -127,27 +127,27 @@ First build your site:
 
 ```bash
 cd ~/Sites/example.com/;
-./scripts/build.sh;
+./scripts/4-build-site.command;
 ```
 
 If you don't want to serve gzipped content, skip the next two steps.
-To upload pre-gzipped content to S3, set the correct upload headers in Transmit first (only once).  Make sure Transmit is not running, then:
+To upload pre-gzipped content to S3, set the correct upload headers in Transmit first (only once). Make sure Transmit is not running, then:
 
 ```bash
 cd ~/Sites/example.com/;
-./scripts/s3headers.sh;
+./scripts/set-s3-headers.command;
 ```
 
 ```bash
 cd ~/Sites/example.com/;
-./scripts/prep.sh;
+./scripts/5-force-gzip.command;
 ```
 
 Then with Transmit sync your build folder with your Amazon S3 bucket.
 
 ## License ##
 
-Copyright 2013, Peter T. Bosse II ([ptb@ioutime.com](mailto:ptb@ioutime.com))
+Copyright 2014, Peter T. Bosse II ([ptb@ioutime.com](mailto:ptb@ioutime.com))
 
 Licensed under the Apache License, Version 2.0 (the 'License');
 you may not use this file except in compliance with the License.
