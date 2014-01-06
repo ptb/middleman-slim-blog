@@ -9,6 +9,8 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
+# require 'middleman/rack'
+
 require 'serve'
 require 'serve/rack'
 
@@ -18,7 +20,7 @@ root = ::File.dirname(__FILE__)
 
 if ENV['RACK_ENV'] != 'production'
   require 'slim'
-  Slim::Engine.set_default_options(:attr_wrapper => "'", :format => :xhtml, :pretty => true, :sort_attrs => true)
+  Slim::Engine.set_default_options attr_quote: "'", :format => :xhtml, pretty: true, sort_attrs: true, shortcut: {'@' => {attr: 'role'}, '#' => {attr: 'id'}, '.' => {attr: 'class'}, '%' => {attr: 'itemprop'}, '&' => {tag: 'input', attr: 'type'}}
 
   require 'sass'
   require 'sass/plugin/rack'
@@ -26,6 +28,8 @@ if ENV['RACK_ENV'] != 'production'
 
   require 'coffee-script'
 end
+
+# run Middleman.server
 
 run Rack::Cascade.new([
   Serve::RackAdapter.new(root + '/build'),
