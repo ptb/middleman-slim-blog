@@ -1,17 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'middleman', '>= 3.0'
-gem 'middleman-blog', '>= 3.0'
+gem 'middleman', '>= 3.2.1'
+gem 'middleman-blog', '>= 3.5.1'
 
-gem 'middleman-livereload', '>= 3.0'
+gem 'middleman-livereload', '>= 3.1.0'
+gem 'middleman-minify-html', '>= 3.1.1'
 
-gem 'slim', '>= 1.3'
-gem 'sass', '>= 3.2'
-gem 'coffee-script', '>= 2.2'
+gem 'slim', '>= 2.0.2'
 
-gem 'builder', '>= 3.0'
+gem 'builder', '>= 3.2.2'
 
-gem 'nokogiri', '>= 1.5'
+gem 'nokogiri', '>= 1.6.1'
 
-gem 'serve', '>= 1.5'
-gem 'thin', '>= 1.5'
+gem 'serve', '>= 1.5.1'
+gem 'thin', '>= 1.6.1'
