@@ -1,12 +1,14 @@
-span.author.vcard
-  a.url[href='#{author[:url]}']
-    span.fn.n
-      span.given-name= author[:fname]
+- author = data[:authors][:author1]
+
+span.author.vcard%author[itemscope itemtype='http://schema.org/Person']
+  a.url%url[href='#{author[:url]}' rel='author']
+    span.fn.n%name
+      span.given-name%givenName = author[:fname]
       - if author[:mname]
         '
-        span.additional-name= author[:mname]
+        span.additional-name%additionalName = author[:mname]
       '
-      span.family-name= author[:lname]
+      span.family-name%familyName = author[:lname]
       - if author[:sname]
         '
-        span.honorific-suffix= author[:sname]
+        span.honorific-suffix%honorificSuffix = author[:sname]
