@@ -10,6 +10,7 @@ ignore 'intros/*' if File.directory?('source/intros/')
 
 set :layout, 'minimum'
 with_layout false do
+  page '*.atom'
   page '*.rss'
   page '*.xml'
   page '*.css'
@@ -64,5 +65,5 @@ configure :build do
   # activate :minify_javascript
 
   activate :minify_html
-  activate :gzip, exts: %w(.css .html .js .rss .svg .txt .xhtml .xml .eot .otf .ttf)
+  activate :gzip, exts: %w(.atom .css .html .js .rss .svg .txt .xhtml .xml .eot .otf .ttf)
 end
