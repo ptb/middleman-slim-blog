@@ -4,7 +4,7 @@ header@banner
   h1: a[href='#{site[:path]}'] = site[:name]
   - unless blog.tags.nil?
     ul.topics@navigation
-      - blog.tags.each do |tag|
-        li: a%keywords[href='#{tag_path tag.first}' rel='tag'] = tag.first
+      - blog.tags.each do |tag, articles|
+        li: a%keywords[href='#{tag_path tag}' rel='tag'] = tag
 
 hr

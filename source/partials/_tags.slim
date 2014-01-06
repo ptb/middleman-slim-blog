@@ -1,4 +1,0 @@
-- unless tags.empty?
-  ul.tags
-    - tags.sort.each do |tag, articles|
-      li: a[href='#{tag_path tag}' itemprop='keywords' rel='tag'] #{tag.titleize}
