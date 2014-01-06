@@ -64,6 +64,6 @@ configure :build do
 
   # activate :minify_javascript
 
-  activate :minify_html
+  activate :minify_html, remove_quotes: false
   activate :gzip, exts: %w(.atom .css .html .js .rss .svg .txt .xhtml .xml .eot .otf .ttf)
 end
