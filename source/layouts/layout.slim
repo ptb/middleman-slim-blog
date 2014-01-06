@@ -1,0 +1,51 @@
+- webapp = false
+
+- locals[:author] = data[:authors][:author1]
+- locals[:site] = data[:authors][:site1]
+
+doctype 5
+html.no-js[lang='en' prefix='og: http://ogp.me/ns#' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml']
+  head
+    meta[charset='UTF-8']/
+
+    - partial 'title', locals: locals
+    - if content_for? :title
+      title #{yield_content :title}
+
+    - partial 'seo_and_og', locals: locals
+    - if content_for? :seo_and_og
+      == yield_content :seo_and_og
+
+    - if webapp
+      meta[content='yes' name='apple-mobile-web-app-capable']/
+
+    meta[content='initial-scale=1, width=device-width' name='viewport']/
+
+    // meta[content='IE=edge,chrome=1' http-equiv='X-UA-Compatible']/
+
+    link[href="#{asset_path :css, 'style'}" rel='stylesheet']/
+    /[if lte IE 7]
+      link[href="#{asset_path :css, 'ie/flexgrid'}" rel='stylesheet']/
+
+    script[src="#{asset_path :js, 'jquery'}"]
+    script[src="#{asset_path :js, 'modernizr'}"]
+
+    /[if (gte IE 6)&(lte IE 8)]
+      script[src="#{asset_path :js, 'ie/nwmatcher-selectivizr'}"]
+
+    /[if IE 8]
+      script[src="#{asset_path :js, 'ie/respond'}"]
+
+    link[href='/subscribe/feed.xml' rel='alternate' type='application/atom+xml']/
+    link[href='/subscribe/feed.rss' rel='alternate' type='application/rss+xml']/
+
+    - if defined? author[:google_plus_url]
+      link[href='#{author[:google_plus_url]}' rel='author']/
+
+    link[href='http://microformats.org/profile/hatom' rel='profile']/
+    link[href='http://microformats.org/profile/hcard' rel='profile']/
+
+    - if content_for? :head
+      == yield_content :head
+
+  == yield

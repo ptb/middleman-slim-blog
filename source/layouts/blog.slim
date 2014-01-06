@@ -1,0 +1,33 @@
+- locals[:author] = data[:authors][:author1]
+- locals[:site] = data[:authors][:site1]
+
+- wrap_layout :layout do
+  body[itemscope itemtype='http://www.schema.org/Blog']
+
+    == partial 'header'
+
+    - if is_blog_article?
+      main#main@main
+
+        - if defined?(current_article) && File.exists?("source/intros/_#{current_article.slug}.slim")
+          == partial "../intros/#{current_article.slug}"
+          hr
+
+        == partial 'article', locals: {article: current_article, article_body: yield, author: locals[:author], single_article: true}
+
+        == partial 'paginate', locals: {prev_url: (current_article.next_article ? current_article.next_article.url : nil), next_url: (current_article.previous_article ? current_article.previous_article.url : nil), prev_title: (current_article.next_article ? "#{current_article.next_article.title}" : nil), next_title: (current_article.previous_article ? "#{current_article.previous_article.title}" : nil), page_number: nil, num_pages: nil}
+
+    - else
+      main.hfeed#main@main
+
+        - if defined?(page_type) && (page_type == 'tag') && File.exists?("source/intros/_#{(tag_path tagname).delete('/')}.slim")
+          == partial "../intros/#{(tag_path tagname).delete('/')}"
+
+        - page_articles.each do |article|
+          == partial 'article', locals: {article: article, article_body: article.summary, author: locals[:author], single_article: false}
+
+        - if paginate
+          == partial 'paginate', locals: {prev_url: (prev_page ? prev_page.url : nil), next_url: (next_page ? next_page.url : nil), prev_title: 'Newer', next_title: 'Older', page_number: page_number, num_pages: num_pages}
+
+    == partial 'footer', locals: locals
+    == partial 'analytics'

@@ -1,0 +1,24 @@
+doctype 5
+html.no-js[lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml']
+  head
+    meta[charset='UTF-8']/
+
+    - if content_for? :title
+      title #{yield_content :title}
+
+    meta[content='initial-scale=1, width=device-width' name='viewport']/
+
+    script[src="#{asset_path :js, 'jquery'}"]
+    script[src="#{asset_path :js, 'modernizr'}"]
+
+    /[if (gte IE 6)&(lte IE 8)]
+      script[src="#{asset_path :js, 'ie/nwmatcher-selectivizr'}"]
+
+    /[if IE 8]
+      script[src="#{asset_path :js, 'ie/respond'}"]
+
+    - if content_for? :head
+      == yield_content :head
+
+  body
+    == yield
