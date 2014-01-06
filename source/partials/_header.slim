@@ -1,3 +1,10 @@
-header[role='banner']
-  h1: a[href='#{locals[:author][:org_url]}'] #{locals[:author][:org]}
-  == partial 'tags', :locals => { :tags => blog.tags }
+- site = data[:authors][:site1]
+
+header@banner
+  h1: a[href='#{site[:path]}'] = site[:name]
+  - unless blog.tags.nil?
+    ul.topics@navigation
+      - blog.tags.each do |tag|
+        li: a%keywords[href='#{tag_path tag.first}' rel='tag'] = tag.first
+
+hr
