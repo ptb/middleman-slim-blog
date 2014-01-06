@@ -23,6 +23,11 @@
         - if defined?(page_type) && (page_type == 'tag') && File.exists?("source/intros/_#{(tag_path tagname).delete('/')}.slim")
           == partial "../intros/#{(tag_path tagname).delete('/')}"
 
+          - content_for :d do
+            = truncate(strip_tags(partial "../intros/#{(tag_path tagname).delete('/')}"), length: 200)
+          - content_for :seo_and_og do
+            meta[content="#{yield_content(:d).strip}" name='description' property='og:description']/
+
         - page_articles.each do |article|
           == partial 'article', locals: {article: article, article_body: article.summary, author: locals[:author], single_article: false}
 
