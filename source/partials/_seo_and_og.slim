@@ -1,0 +1,25 @@
+- author = locals[:author]
+- site = locals[:site]
+
+- if is_blog_article?
+  - content_for :seo_and_og do
+    / http://support.google.com/webmasters/bin/answer.py?answer=35624#1
+    - if current_article.data.summary
+      meta[content="#{current_article.data.summary.strip}" name='description' property='og:description']/
+    - else
+      meta[content="#{truncate(strip_tags(current_article.summary).strip, length: 200)}" name='description' property='og:description']/
+
+    / http://ogp.me/#metadata
+    - if File.exists?("source/img/summary/#{current_article.slug}.jpg")
+      - content_for :i do
+        = asset_path :images, "summary/#{current_article.slug}.jpg"
+      meta[content="#{URI.join(site[:url], yield_content(:i).strip)}" property='og:image']/
+
+    meta[content="#{current_article.title}" property='og:title']/
+    meta[content='article' property='og:type']/
+    meta[content="#{URI.join(site[:url], current_article.url)}" property='og:url']/
+
+    / https://dev.twitter.com/docs/cards/markup-reference
+    - if author[:twitter]
+      meta[content='summary' name='twitter:card']/
+      meta[content="@#{author[:twitter]}" name='twitter:creator']/
