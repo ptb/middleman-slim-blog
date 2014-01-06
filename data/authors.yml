@@ -6,16 +6,28 @@ author1:
   url: /about/
   title: freelance web developer
   title_url: /web-design/
-  org: Example Corp
-  org_url: /
-  org_full_url: http://example.com
   google_plus_url: https://plus.google.com/123456789012345678901
   # Email encoder: <http://bit.ly/4qXtQh>
   email: "&#106;&#097;&#109;&#101;&#115;&#064;&#101;&#120;&#097;&#109;&#112;&#108;&#101;&#046;&#099;&#111;&#109;"
+  twitter: jim
   tel: (212) 555-1212
   tel_url: +1-212-555-1212
   pobox: 123
   locality: New York
   region: NY
-  postal_code: 10001
+  postal_code: '10001'
   country_name: US
+
+site1:
+  name: Example Corp
+  description: ''
+  url: http://example.com/
+  path: /
+  tld: example.com
+  pid: '1234567-8'
+  topics:
+    - Technology
+    - Health
+    - Relationships
+    - Fashion
+    - Finance
