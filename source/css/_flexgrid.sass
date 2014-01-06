@@ -1,9 +1,42 @@
-$grid-columns: 12
+/**! ptb2.me/flexgrid | (c) 2013 Peter T Bosse II | Apache license
+/**! Inspired by Bootstrap 3.0 | License: http://bit.ly/WzvaP8
 
-$container: 'container'
-$row: 'row'
-$span: 'span'
-$offset: 'offset'
+// box-sizing supported by: <http://bit.ly/HM42F3>
+//   Chrome, IE 8+, Firefox (-moz), Safari 5.1+, Opera
+//   iOS <= 4 & Android <= 2.3 (-webkit), Firefox (-moz)
+
+// :before and :after pseudo-elements supported by:
+//   Chrome, IE 8+, Firefox, Safari, Opera 4.0+:
+// ::before and ::after pseudo-elements supported by:
+//   Chrome, IE 9+, Firefox, Safari, Opera 7.0+:
+// <http://mzl.la/Q5hf09> <bit.ly/YCpGPd> <bit.ly/XV046x>
+
+// XHTML supported by IE 9+ and all other browsers
+
+// media queries supported by: <http://mzl.la/Ykdnuw>
+//   Chrome, IE 9+, Firefox, Safari 1.3+, Opera 9.2+
+
+// flexible box layout supported by: <http://bit.ly/e4JYg3>
+//   Chrome, IE 10+, Firefox, Safari, Opera 12.1+
+
+// FYI: Google has dropped support for IE 8: <bit.ly/z6LWk0>
+// FYI: jQuery 2.0 will drop support for IE 8: <bit.ly/QQ0Cme>
+
+$grid-gutter-width: 30px !default
+$grid-columns: 12 !default
+$reorder: false !default
+
+// Rename these classes if you don't need Bootstrap compatibility
+$container: 'container' !default
+$row: 'row' !default
+$span: 'span' !default
+$offset: 'offset' !default
+$push: 'push' !default
+$pull: 'pull' !default
+
+// New Bootstrap 3 class names. Un-indent to use.
+  $span: 'col-span-'
+  $offset: 'col-offset-'
 
 =clear-float
   &:before, &:after
@@ -12,72 +45,107 @@ $offset: 'offset'
   &:after
     clear: both
 
-=grid-offset($columns)
-  margin-left: percentage($columns / $grid-columns)
+=fluid-grid-widths($num-columns)
+  $i: 1
+  @while $i <= $num-columns
+    .#{$span}#{$i}
+      width: percentage($i / $num-columns)
+    @if $i < $num-columns
+      .#{$offset}#{$i}
+        margin-left: percentage($i / $num-columns)
+    $i: $i + 1
 
-=grid-offset-x($columns)
-  @while $columns > 0
-    .#{$offset}#{$columns}
-      +grid-offset($columns)
-    $columns: $columns - 1
+=order-float($num-columns)
+  $i: 1
+  @while $i < $num-columns
+    .#{$push}#{$i}
+      left: percentage($i / $num-columns)
+    .#{$pull}#{$i}
+      right: percentage($i / $num-columns)
+    $i: $i + 1
 
-=grid-span($columns)
-  width: percentage($columns / $grid-columns)
+=order-flex($i)
+  -webkit-box-ordinal-group: $i
+  -ms-flex-order: $i
+  -webkit-order: $i
+  order: $i
 
-=grid-span-x($columns)
-  @while $columns > 0
-    .#{$span}#{$columns}
-      +grid-span($columns)
-    $columns: $columns - 1
+=order-flex-x($num-columns)
+  $i: 1
+  @while $i <= $num-columns
+    @if $i == 1
+      .#{$pull}#{$num-columns - $i}
+        +order-flex($i)
+    @else if $i < $num-columns
+      .#{$push}#{$i - 1}, .#{$pull}#{$num-columns - $i}
+        +order-flex($i)
+    @else if $i <= $num-columns
+      .#{$push}#{$i - 1}
+        +order-flex($i)
+    $i: $i + 1
 
-body
-  margin: 0
+=span-x($num-columns)
+  $i: 1
+  @while $i <= $num-columns
+    .#{$span}#{$i}
+      @extend %span
+    $i: $i + 1
+
+.#{$container}, .#{$row}
+  +clear-float
+
+.#{$container}
+  margin-right: auto
+  margin-left: auto
+
+%span
+  padding-right: $grid-gutter-width / 2
+  padding-left: $grid-gutter-width / 2
+  min-height: 1px
+
++span-x($grid-columns)
 
 @media screen
   @media (min-width: 768px)
-    $grid-gutter-width: 20px
+
+    .no-flexbox.no-webkitbox
+      & *[class*='#{$span}']
+        position: relative
+        float: left
+        &.pull-right
+          float: right
+
+      @if $reorder
+        +order-float($grid-columns)
+
+    .flexbox, .webkitbox
+      & .#{$row}
+        display: -webkit-box
+        display: -ms-flexbox
+        display: -webkit-flex
+        display: flex
+
+      @if $reorder
+        +order-flex-x($grid-columns)
+
+    +fluid-grid-widths($grid-columns)
 
     .#{$container}
-      margin-right: auto
-      margin-left: auto
       max-width: 768px - ($grid-gutter-width * 2)
-      +clear-float
 
     .#{$row}
       margin-right: $grid-gutter-width / -2
       margin-left: $grid-gutter-width / -2
-      +clear-float
 
-    [class*='#{$span}']
+    *[class*='#{$span}']
       -webkit-box-sizing: border-box
       -moz-box-sizing: border-box
       box-sizing: border-box
-      padding-right: $grid-gutter-width / 2
-      padding-left: $grid-gutter-width / 2
-      min-height: 1px
-      float: left
-
-    +grid-span-x($grid-columns)
-
-    +grid-offset-x($grid-columns)
 
   @media (min-width: 992px)
     .#{$container}
       max-width: 940px
 
   @media (min-width: 1200px)
-    $grid-gutter-width: 30px
-
     .#{$container}
       max-width: 1200px - $grid-gutter-width
-
-    .#{$row}
-      margin-right: $grid-gutter-width / -2
-      margin-left: $grid-gutter-width / -2
-
-    [class*='#{$span}']
-      padding-right: $grid-gutter-width / 2
-      padding-left: $grid-gutter-width / 2
-
-[class*='#{$span}'].pull-right
-  float: right

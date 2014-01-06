@@ -4,7 +4,6 @@
 
 footer.author.vcard@contentinfo%author[itemscope itemtype='http://schema.org/Person']
   p.copyright
-    ' &#169;&#160;
     time[datetime='#{Time.now.year}'] = Time.now.year
     '
     span.fn.n%name[rel='author']
@@ -29,7 +28,6 @@ footer.author.vcard@contentinfo%author[itemscope itemtype='http://schema.org/Per
     |.
 
   address
-    ' Contact
     - if author[:email]
       a.email%email[href='&#109;&#097;&#105;&#108;&#116;&#111;:#{{author[:email]}}'] == author[:email]
     - if author[:tel] && author[:tel_url]
