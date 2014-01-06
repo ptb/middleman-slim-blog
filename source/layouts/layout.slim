@@ -36,8 +36,8 @@ html.no-js[lang='en' prefix='og: http://ogp.me/ns#' xml:lang='en' xmlns='http://
     /[if IE 8]
       script[src="#{asset_path :js, 'ie/respond'}"]
 
-    link[href='/subscribe/feed.atom' rel='alternate' type='application/atom+xml']/
-    link[href='/subscribe/feed.rss' rel='alternate' type='application/rss+xml']/
+    link[href="#{url_for '/subscribe/feed.atom'}" rel='alternate' type='application/atom+xml']/
+    link[href="#{url_for '/subscribe/feed.rss'}" rel='alternate' type='application/rss+xml']/
 
     - if defined? author[:google_plus_url]
       link[href='#{author[:google_plus_url]}' rel='author']/
