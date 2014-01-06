@@ -25,9 +25,3 @@ site1:
   path: /
   tld: example.com
   pid: '1234567-8'
-  topics:
-    - Technology
-    - Health
-    - Relationships
-    - Fashion
-    - Finance
