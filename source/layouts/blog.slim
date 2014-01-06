@@ -22,6 +22,7 @@
 
         - if defined?(page_type) && (page_type == 'tag') && File.exists?("source/intros/_#{(tag_path tagname).delete('/')}.slim")
           == partial "../intros/#{(tag_path tagname).delete('/')}"
+          hr
 
           - content_for :d do
             = truncate(strip_tags(partial "../intros/#{(tag_path tagname).delete('/')}"), length: 200)
