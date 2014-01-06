@@ -1,12 +1,3 @@
 ---
 pageable: true
 ---
-- locals[:author] = data.authors.author1
-
-== partial 'intro', :locals => locals
-
-div.hfeed[role='main']
-  == partial 'articles', :locals => { :page_articles => page_articles, :author => locals[:author] }
-
-- if paginate
-  == partial 'paginate', :locals => { :prev_url => (prev_page ? prev_page.url : nil), :next_url => (next_page ? next_page.url : nil), :prev_title => 'Newer', :next_title => 'Older', :page_number => page_number, :num_pages => num_pages }
