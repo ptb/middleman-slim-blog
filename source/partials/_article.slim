@@ -1,18 +1,28 @@
-article.hentry[itemprop='blogPost' itemscope itemtype='http://schema.org/BlogPosting']
+article.hentry%blogPost[itemscope itemtype='http://schema.org/BlogPosting']
   header
-    == partial 'date', :locals => { :datetime => article.date }
-    '
-    == partial 'tags', :locals => { :tags => article.tags }
-    '
-    == partial 'author', :locals => { :author => locals[:author] }
+    - unless article.tags.empty?
+      ul.tags@navigation
+        - article.tags.each do |tag, articles|
+          li: a%keywords[href='#{tag_path tag}' rel='tag'] = tag
 
-  div
-    == partial 'headline', :locals => { :article => article, :single_article => single_article }
+    == partial 'date', locals: {datetime: article.date}
+    '
+    == partial 'author', locals: {author: locals[:author]}
+    
+    h2.entry-title%headline
+      - if single_article
+        = article.title
+      - else
+        a.permalink%url[href='#{article.url}' rel='bookmark'] = article.title
+
     - if single_article
-      div.entry-content[itemprop='articleBody']
+      div.entry-content%articleBody
         == article_body
     - else
-      div.entry-summary[itemprop='description']
+      div.entry-summary%description
         == article_body
-      == partial 'more', :locals => { :article => article }
+    //
+      div.row.more
+        div.offset8.span4: a[href='#{article.url}'] Continue Reading
+
 hr
